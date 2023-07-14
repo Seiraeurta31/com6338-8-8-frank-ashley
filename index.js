@@ -14,8 +14,8 @@ form.onsubmit = function(e) {
     })
     .then(formatLocationData)
     .catch(function(err){
-        form.search.value = ""
-        weatherDisplay.innerHTML = ""
+        // form.search.value = ""
+        // weatherDisplay.innerHTML = ""
 
         var errorMessage = document.createElement('h2')
         errorMessage.textContent = "Location not found"
