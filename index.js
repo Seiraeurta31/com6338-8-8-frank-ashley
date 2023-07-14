@@ -1,12 +1,8 @@
-// Your code here
-//API key 08ace7633004d5ddf370678a8c052e90
-
 var weatherDisplay = document.getElementById('weather')
 var form = document.querySelector('form')
 
 form.onsubmit = function(e) {
     e.preventDefault()
-    //console.log("hello")
     var userInput = this.search.value.trim()
     console.log (userInput)
 
@@ -14,16 +10,7 @@ form.onsubmit = function(e) {
 
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + userInput + '&units=imperial&appid=08ace7633004d5ddf370678a8c052e90')
     .then(function(res){
-        //console.log (res)
-        if(res.status !== 200){
-            throw new Error ('Location not found')
-        }
-        return res.json()
-        
-    })
-    .then(function(data){
-        console.log(data)
-        return data
+        return res.json()    
     })
     .then(formatLocationData)
     .catch(function(err){
@@ -31,7 +18,7 @@ form.onsubmit = function(e) {
         weatherDisplay.innerHTML = ""
 
         var errorMessage = document.createElement('h2')
-        errorMessage.textContent = err.message
+        errorMessage.textContent = "Location not found"
         weatherDisplay.appendChild(errorMessage)
     })   
 }
@@ -40,8 +27,6 @@ form.onsubmit = function(e) {
 function formatLocationData(locationData){
     form.search.value = ""
     weatherDisplay.innerHTML = ""
-
-    //console.log ("location name: " + locationData.name)
     
     //City/Country 
     var cityName = document.createElement('h2')
