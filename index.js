@@ -27,7 +27,12 @@ form.onsubmit = function(e) {
     })
     .then(formatLocationData)
     .catch(function(err){
-        weatherDisplay.innerHTML = err.message
+        form.search.value = ""
+        weatherDisplay.innerHTML = ""
+        
+        var errorMessage = document.createElement('h2')
+        errorMessage.textContent = err.message
+        weatherDisplay.appendChild(errorMessage)
     })   
 }
 
