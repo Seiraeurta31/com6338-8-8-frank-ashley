@@ -12,7 +12,7 @@ form.onsubmit = function(e) {
 
     if(!userInput) return
 
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + userInput + '&appid=08ace7633004d5ddf370678a8c052e90')
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + userInput + '&units=imperial&appid=08ace7633004d5ddf370678a8c052e90')
     .then(function(res){
         //console.log (res)
         if(res.status !== 200){
@@ -70,26 +70,28 @@ function formatLocationData(locationData){
     weatherDescription.textContent = locationData.weather[0].description
     weatherDisplay.appendChild(weatherDescription)
 
+    weatherDisplay.appendChild(document.createElement('br'))
+
     //Current Temp
-    var locationTemp = document.createElement('p') 
-    var fahrenheitTemp = kelvinToFahrenheit(locationData.main.temp)
-    locationTemp.textContent = fahrenheitTemp + "° F"
-    weatherDisplay.appendChild(locationTemp)
+    var currentTemp = document.createElement('p') 
+    currentTemp.textContent = "Current: " + (locationData.main.temp).toFixed(2) + "° F"
+    weatherDisplay.appendChild(currentTemp)
 
     // //Feels Like Temp
-    // var weatherDescription = document.createElement('p')
-    // weatherDescription.style.textTransform = "capitalize"
-    // weatherDescription.textContent = locationData.weather[0].description
-    // weatherDisplay.appendChild(weatherDescription)
+    var feelLikeTemp = document.createElement('p') 
+    feelLikeTemp.textContent = "Feels like: " + (locationData.main.feels_like).toFixed(2) + "° F"
+    weatherDisplay.appendChild(feelLikeTemp)
 
-    // //Feels Like Temp
-    // var weatherDescription = document.createElement('p')
-    // weatherDescription.style.textTransform = "capitalize"
-    // weatherDescription.textContent = locationData.weather[0].description 
-    // weatherDisplay.appendChild(weatherDescription)
+    weatherDisplay.appendChild(document.createElement('br'))
 
-}
+    // //TimeStamp
+    var timeStamp = document.createElement('p')
+    var date = new Date((locationData.dt)*1000)
+    var timeString = date.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit'
+    }) 
+    timeStamp.textContent = "Last updated: " + timeString
+    weatherDisplay.appendChild(timeStamp)
 
-function kelvinToFahrenheit (kelvinTemp){
-    return (((kelvinTemp - 273.15)* (9/5)) +32).toFixed(2)
 }
