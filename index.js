@@ -6,14 +6,19 @@ form.onsubmit = function(e) {
     var userInput = this.search.value.trim()
     console.log (userInput)
 
-    if(!userInput) return
-
+    if(!userInput) {
+        form.search.value = "" 
+        return
+    }
+        
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + userInput + '&units=imperial&appid=08ace7633004d5ddf370678a8c052e90')
     .then(function(res){
         return res.json()    
     })
     .then(formatLocationData)
     .catch(function(err){
+        form.search.value = ""
+        weatherDisplay.innerHTML = ""
         var errorMessage = document.createElement('h2')
         errorMessage.textContent = "Location not found"
         weatherDisplay.appendChild(errorMessage)
