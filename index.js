@@ -3,7 +3,6 @@
 
 var weatherDisplay = document.getElementById('weather')
 var form = document.querySelector('form')
-var fieldLabel = document.querySelector('label')
 
 form.onsubmit = function(e) {
     e.preventDefault()
@@ -22,26 +21,26 @@ form.onsubmit = function(e) {
         return res.json()
         
     })
-    // .then(function(data){
-    //     console.log(data)
-    //     console.log("location name: " + data.name + ", " + data.sys.country)
-    // })
+    .then(function(data){
+        console.log(data)
+        return data
+    })
     .then(formatLocationData)
     .catch(function(err){
         weatherDisplay.innerHTML = err.message
     })   
-
 }
 
+
 function formatLocationData(locationData){
+    form.search.value = ""
     weatherDisplay.innerHTML = ""
-    this.search.value = ""
 
     console.log ("location name: " + locationData.name)
     var cityName = document.createElement('h2')
 
     //cityName.textContent = locationData.name + " ," + locationData.country
-    cityName.textContent = locationData.name
+    cityName.textContent = locationData.name + ", " + locationData.sys.country
     console.log(cityName)
     weatherDisplay.appendChild(cityName)
 }
