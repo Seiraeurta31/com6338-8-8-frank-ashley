@@ -4,7 +4,6 @@ var form = document.querySelector('form')
 form.onsubmit = function(e) {
     e.preventDefault()
     var userInput = this.search.value.trim()
-    console.log (userInput)
 
     if(!userInput) {
         form.search.value = "" 
