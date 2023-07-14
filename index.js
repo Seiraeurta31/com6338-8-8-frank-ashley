@@ -14,9 +14,6 @@ form.onsubmit = function(e) {
     })
     .then(formatLocationData)
     .catch(function(err){
-        // form.search.value = ""
-        // weatherDisplay.innerHTML = ""
-
         var errorMessage = document.createElement('h2')
         errorMessage.textContent = "Location not found"
         weatherDisplay.appendChild(errorMessage)
@@ -25,6 +22,7 @@ form.onsubmit = function(e) {
 
 
 function formatLocationData(locationData){
+    //Clear previous data
     form.search.value = ""
     weatherDisplay.innerHTML = ""
     
@@ -44,10 +42,10 @@ function formatLocationData(locationData){
     weatherDisplay.appendChild(mapLink)
 
     //Weather Icon 
-    var weatherIconImage = document.createElement('img')
-    var weatherIconCode = locationData.weather[0].icon
-    weatherIconImage.src = "https://openweathermap.org/img/wn/" + weatherIconCode + "@2x.png"
-    weatherDisplay.appendChild(weatherIconImage)
+    var weatherIcon = document.createElement('img')
+    var iconCode = locationData.weather[0].icon
+    weatherIcon.src = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png"
+    weatherDisplay.appendChild(weatherIcon)
 
     //Weather Description
     var weatherDescription = document.createElement('p')
